@@ -1,0 +1,12 @@
+{
+  "python.pythonPath": "/usr/local/bin/python3",
+  "javascript.format.enable": false,
+  "javascript.suggest.enabled": false,
+  "javascript.suggest.paths": false,
+  "javascript.suggestionActions.enabled": false,
+  "jsDocCompletion.enabled": false,
+  "typescript.check.npmIsInstalled": false,
+  "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+  "typescript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "javascript.validate.enable": false
+}
