@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaArrowCircleUp } from 'react-icons/fa';
 import {VERIFY_USER} from '../events';
 
 class LoginForm extends Component {
@@ -44,10 +45,9 @@ class LoginForm extends Component {
     return (
       <div className="login">
         <form onSubmit={this.handleSubmit} className="login-form">
-          <label htmlFor="handle">
-            <h2>Enter your username:</h2>
-          </label>
+        <div className="logo">iChaty</div>
           <input
+            placeholder="Your handle..."
             autoFocus
             ref={(input) => { this.textInput = input}}
             type="text"
@@ -55,6 +55,9 @@ class LoginForm extends Component {
             value={handle}
             onChange={this.handleChange}
           />
+          <button type="submit" className="enter-btn">
+            <FaArrowCircleUp/>
+          </button>
           <div className="error">
             {error ? error : null}
           </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { uniqBy } from 'lodash';
 
 class Messages extends Component {
   constructor(props) {
@@ -19,10 +20,12 @@ class Messages extends Component {
 
   render() {
     const { messages, user, typingUsers } = this.props;
+    const newMessages = uniqBy(messages, 'id')
     return (
       <div ref="container" className="thread-container">
         <div className="thread">
-          {messages.map(mes => {
+          {/* <div>{JSON.stringify(messages, null, 2)}</div> */}
+          {newMessages.map(mes => {
             return (
               <div
                 key={mes.id}
@@ -31,6 +34,7 @@ class Messages extends Component {
               >
                 <div className="time"><span>{mes.sender.slice(0,1).toUpperCase()}</span></div>
                 <div className="data">
+                  {/* <div>{mes.id}</div> */}
                   <div className="message">{mes.message}</div>
                   <div className="name">{mes.time}</div>
                 </div>
@@ -40,7 +44,7 @@ class Messages extends Component {
           <div className="typing-user">
             {typingUsers.map(name => {
               return (
-                  <span>{`${name} is typing...`}</span>
+                  <span key={'typing_user' + Date.now()}>{`${name} is typing...`}</span>
               );
             })}
           </div>

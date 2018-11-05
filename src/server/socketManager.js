@@ -17,7 +17,6 @@ let connectedUsers = {};
 let globalChat = createChat({ isGlobal: true });
 
 module.exports = function(socket) {
-  console.log('server connection ✔️ ok. Socket ID ->', socket.id);
 
   let sendMessageToChatFromUser;
   let sendTypingFromUser;

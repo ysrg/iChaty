@@ -24,32 +24,34 @@ const createUser = ({name = '', socketId = null} = {}) => (
  *  create a messages object
  */
 
- const createMessage = ({message = '', sender = ''} = {}) => (
-   {
+ const createMessage = ({message = '', sender = ''} = {}) => {
+   return {
      id: uuidv4(),
      time: getTime(new Date(Date.now())),
      message,
      sender
    }
- )
+  }
 
 /**
 * create a Chat object
 */
 
- const createChat = ({messages = [], name = "Lapusna", users = [], isGlobal = false} = {}) => (
-   {
+ const createChat = ({messages = [], name = "hui1", users = [], isGlobal = false} = {}) => {
+   return {
      id: uuidv4(),
-     name: isGlobal ? 'Lapusna' : createChatNameFromUsers(users),
+     name: isGlobal ? 'Home' : createChatNameFromUsers(users),
      messages,
      users,
      typingUsers: [],
      isGlobal
    }
- )
+  }
+
 
  function createChatNameFromUsers(users, excludeUser = '') {
-   return users.filter(u => u !== excludeUser).join(' & ') || 'Lapusna'
+   return users.filter(u => u !== excludeUser).filter((el, i, ar) =>{
+    return ar.indexOf(el) === i}).join(', ')
  }
 
  const getTime = (date) => {

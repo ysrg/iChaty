@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { get, last, differenceBy } from 'lodash';
-import { Nav, NavItem, NavLink, Navbar, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
-import { FAMenu, FaSearch as FASearch } from 'react-icons/fa';
+import { get, last, differenceBy, uniqBy } from 'lodash';
+import { Nav, NavItem, Navbar, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
+import { FaSearch as FASearch } from 'react-icons/fa';
 import { MdEject } from 'react-icons/md';
 import SideBarOption from './SideBarOption';
 import { createChatNameFromUsers } from '../../factories';
@@ -16,7 +16,7 @@ export default class SideBar extends Component {
     this.toggleNavbar = this.toggleNavbar.bind(this);
 
     this.state = {
-      collapsed: true,
+      collapsed: this.props.width < 767 ? true : false,
       reciever: '',
       activeSidebar: SideBar.type.CHATS
     };
@@ -44,20 +44,22 @@ export default class SideBar extends Component {
   };
 
   render() {
-    console.log(this.props)
     const {
       user,
       users,
       setActiveChat,
       logout,
       chats,
-      activeChat
+      activeChat,
+      width
     } = this.props;
     const { reciever, activeSidebar } = this.state;
+    const filteredChats = uniqBy(chats, 'id')
     return (
       <div id="side-bar">
         <Navbar color="faded" light>
-          <NavbarBrand className="mr-auto">iChat</NavbarBrand>
+          <NavbarBrand className="mr-auto">iChaty</NavbarBrand>
+          <div className="current-chat-nav">{this.props.activeChat ? this.props.activeChat.name : null}</div>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
           {/* <h4>{this.props.name}</h4> */}
           <Collapse isOpen={!this.state.collapsed} navbar>
@@ -112,7 +114,7 @@ export default class SideBar extends Component {
                 }}
               >
                 {activeSidebar === SideBar.type.CHATS
-                  ? chats.map(chat => {
+                  ? filteredChats.map((chat,i,arr) => {
                       return (
                         <SideBarOption
                           key={chat.id}
@@ -125,6 +127,9 @@ export default class SideBar extends Component {
                           active={activeChat.id === chat.id}
                           onClick={() => {
                             this.props.setActiveChat(chat);
+                            return width < 767 ? this.setState({
+                              collapsed: !this.state.collapsed
+                            }) : null;
                           }}
                         />
                       );
@@ -136,6 +141,9 @@ export default class SideBar extends Component {
                           name={user.name}
                           onClick={() => {
                             this.addChatForUser(user.name);
+                            return width < 767 ? this.setState({
+                              collapsed: !this.state.collapsed
+                            }) : null;
                           }}
                         />
                       );

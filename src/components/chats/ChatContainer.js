@@ -12,7 +12,6 @@ import {
   USER_DISCONNECTED,
   NEW_CHAT_USER
 } from '../../events';
-import ChatHeading from './ChatHeading';
 import Messages from '../Messages/Messages';
 import MessageInput from '../Messages/MessageInput';
 
@@ -22,10 +21,15 @@ class ChatContainer extends Component {
     this.state = {
       chats: [],
       users: [],
-      activeChat: null
+      activeChat: null,
+      width: Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      )
     };
   }
   componentDidMount() {
+    // this.setActiveChat(this.state.chats[0])
     var self = this;
     window.addEventListener('resize', function(event) {
       self.setState({
@@ -44,6 +48,7 @@ class ChatContainer extends Component {
     this.props.socket.emit(GLOBAL_CHAT, this.resetChat);
     this.initSocket(this.props.socket);
   }
+
 
   componentWillUnmount() {
     this.props.socket.off(PRIVATE_MESSAGE);
@@ -165,27 +170,20 @@ class ChatContainer extends Component {
     this.setState({ activeChat });
   };
   render() {
-    const width1 = Math.max(
-      document.documentElement.clientWidth,
-      window.innerWidth || 0
-    );
-    const height = Math.max(
-      document.documentElement.clientHeight,
-      window.innerHeight || 0
-    );
     const { user, logout } = this.props;
-    const { chats, activeChat, users } = this.state;
+    const { chats, activeChat, users, width } = this.state;
     return (
       <Container>
         <Row>
             <Col md="3">
             <SideBar
-              name={activeChat ? activeChat.name : 'Lapusna'}
+              name={activeChat ? activeChat.name : 'Hiu'}
               logout={logout}
               chats={chats}
               user={user}
               users={users}
               activeChat={activeChat}
+              width={width}
               setActiveChat={this.setActiveChat}
               onSendPrivateMessage={this.sendOpenPrivateMessage}
             />
