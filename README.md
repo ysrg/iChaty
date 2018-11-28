@@ -8,7 +8,7 @@ To do:
 
 To get started:
 
-1. `yarn`
-2. `yarn dev`
+1. <pre>yarn</pre>
+2. <pre>yarn dev</pre>
 
 ![showcase](src/showcase.png)
