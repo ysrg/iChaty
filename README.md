@@ -2,10 +2,6 @@
 
 Chat application built using nodeJs, socket.io and React. You can connect with your friends and chat in multiple rooms, add friends to chat rooms or send messages to them individually.
 
-To do:
-- [ ] Implement data management (mongodb)
-
-
 To get started:
 
 1. <pre>yarn</pre>
