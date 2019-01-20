@@ -4,7 +4,9 @@ Chat application built using nodeJs, socket.io and React. You can connect with y
 
 To get started:
 
-1. <pre>yarn</pre>
-2. <pre>yarn dev</pre>
+<pre>
+$ yarn
+$ yarn dev
+</pre>
 
 ![showcase](src/showcase.png)
